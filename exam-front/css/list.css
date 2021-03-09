@@ -1,0 +1,16 @@
+.list-item {
+    /*border: 2px #8b9a81 solid;*/
+    background-color: #fbfff4;
+}
+
+.btn {
+    width: 100px;
+    height: 30px;
+    /*border: .5px #5a7565 solid;*/
+}
+
+.flex-row-center {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}

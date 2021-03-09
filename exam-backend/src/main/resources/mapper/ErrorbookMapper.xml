@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huiahh.cartexam.generator.mapper.ErrorbookMapper">
+    <resultMap id="BaseResultMap" type="com.huiahh.cartexam.generator.entity.Errorbook">
+        <id column="errorbook_id" jdbcType="INTEGER" property="errorbookId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="course_id" jdbcType="VARCHAR" property="courseId"/>
+        <result column="user_answer" jdbcType="VARCHAR" property="userAnswer"/>
+        <result column="question_id" jdbcType="VARCHAR" property="questionId"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    errorbook_id, user_id, course_id, user_answer, question_id, add_time, update_time, 
+    deleted
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_errorbook
+        where errorbook_id = #{errorbookId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_errorbook
+    where errorbook_id = #{errorbookId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.huiahh.cartexam.generator.entity.Errorbook">
+        insert into exam_errorbook
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="errorbookId != null">
+                errorbook_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="userAnswer != null">
+                user_answer,
+            </if>
+            <if test="questionId != null">
+                question_id,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="errorbookId != null">
+                #{errorbookId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="userAnswer != null">
+                #{userAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huiahh.cartexam.generator.entity.Errorbook">
+        update exam_errorbook
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="userAnswer != null">
+                user_answer = #{userAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                question_id = #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where errorbook_id = #{errorbookId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huiahh.cartexam.generator.entity.Errorbook">
+    update exam_errorbook
+    set user_id = #{userId,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      user_answer = #{userAnswer,jdbcType=VARCHAR},
+      question_id = #{questionId,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where errorbook_id = #{errorbookId,jdbcType=INTEGER}
+  </update>
+</mapper>

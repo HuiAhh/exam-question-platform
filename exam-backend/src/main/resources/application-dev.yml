@@ -1,0 +1,33 @@
+#logging:
+#  config: classpath:log4j2-dev.xml
+
+spring:
+  redis:
+    host: 47.103.192.205
+    port: 6379
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    username: root
+#    password:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://localhost:3306/redis?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT&useSSL=false
+    username: root
+    password: weng
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://47.103.192.205:3306/cart_exam_gen?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT&useSSL=false
+
+server:
+  port: 8080
+
+mybatis-plus:
+  mapper-locations: /mapper/*.xml
+
+logging:
+  level:
+    com:
+      huiahh:
+        debug

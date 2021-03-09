@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huiahh.cartexam.generator.mapper.QuestionMapper">
+    <resultMap id="BaseResultMap" type="com.huiahh.cartexam.generator.entity.Question">
+        <id column="question_id" jdbcType="INTEGER" property="questionId"/>
+        <result column="knowledge_id" jdbcType="VARCHAR" property="knowledgeId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="optiona" jdbcType="VARCHAR" property="optiona"/>
+        <result column="optionb" jdbcType="VARCHAR" property="optionb"/>
+        <result column="optionc" jdbcType="VARCHAR" property="optionc"/>
+        <result column="optiond" jdbcType="VARCHAR" property="optiond"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="answer" jdbcType="VARCHAR" property="answer"/>
+        <result column="answer_detail" jdbcType="VARCHAR" property="answerDetail"/>
+        <result column="user_answer" jdbcType="VARCHAR" property="userAnswer"/>
+        <result column="course_id" jdbcType="VARCHAR" property="courseId"/>
+        <result column="difficulty" jdbcType="INTEGER" property="difficulty"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    question_id, knowledge_id, name, optiona, optionb, optionc, optiond, type, answer, 
+    answer_detail, user_answer, course_id, difficulty
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_question
+        where question_id = #{questionId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultType="com.huiahh.cartexam.generator.entity.Question" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_question
+    </select>
+    <select id="selectByName" parameterType="java.lang.String"
+            resultType="com.huiahh.cartexam.generator.entity.Question">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_question
+        where name like concat('%',#{name} ,'%')
+    </select>
+    <select id="selectByParams" resultType="com.huiahh.cartexam.generator.entity.Question">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_question
+        <where>
+            <trim suffixOverrides="and">
+                <trim prefix="(" suffix=") and" suffixOverrides="or">
+                    <if test="queryTarget != null and queryTarget !=''">
+                        answer_detail like concat('%',#{queryTarget},'%') or
+                        answer like concat('%',#{queryTarget},'%') or
+                        optiond like concat('%',#{queryTarget},'%') or
+                        optionc like concat('%',#{queryTarget},'%') or
+                        optionb like concat('%',#{queryTarget},'%') or
+                        optiona like concat('%',#{queryTarget},'%') or
+                        name like concat('%',#{queryTarget},'%') or
+                    </if>
+                </trim>
+                <if test="courseId != null and courseId !=''">
+                    course_id=#{courseId} and
+                </if>
+                <if test="knowledgeId != null and knowledgeId !=''">
+                    knowledge_id=#{knowledgeId} and
+                </if>
+                <if test="type != null">
+                    type=#{type}
+                </if>
+            </trim>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_question
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.huiahh.cartexam.generator.entity.Question">
+        insert into exam_question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="questionId != null">
+                question_id,
+            </if>
+            <if test="knowledgeId != null">
+                knowledge_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="optiona != null">
+                optiona,
+            </if>
+            <if test="optionb != null">
+                optionb,
+            </if>
+            <if test="optionc != null">
+                optionc,
+            </if>
+            <if test="optiond != null">
+                optiond,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="answerDetail != null">
+                answer_detail,
+            </if>
+            <if test="userAnswer != null">
+                user_answer,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="difficulty != null">
+                difficulty,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="questionId != null">
+                #{questionId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgeId != null">
+                #{knowledgeId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="optiona != null">
+                #{optiona,jdbcType=VARCHAR},
+            </if>
+            <if test="optionb != null">
+                #{optionb,jdbcType=VARCHAR},
+            </if>
+            <if test="optionc != null">
+                #{optionc,jdbcType=VARCHAR},
+            </if>
+            <if test="optiond != null">
+                #{optiond,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="answerDetail != null">
+                #{answerDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="userAnswer != null">
+                #{userAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="difficulty != null">
+                #{difficulty,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huiahh.cartexam.generator.entity.Question">
+        update exam_question
+        <set>
+            <if test="knowledgeId != null">
+                knowledge_id = #{knowledgeId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="optiona != null">
+                optiona = #{optiona,jdbcType=VARCHAR},
+            </if>
+            <if test="optionb != null">
+                optionb = #{optionb,jdbcType=VARCHAR},
+            </if>
+            <if test="optionc != null">
+                optionc = #{optionc,jdbcType=VARCHAR},
+            </if>
+            <if test="optiond != null">
+                optiond = #{optiond,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="answerDetail != null">
+                answer_detail = #{answerDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="userAnswer != null">
+                user_answer = #{userAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="difficulty != null">
+                difficulty = #{difficulty,jdbcType=INTEGER},
+            </if>
+        </set>
+        where question_id = #{questionId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huiahh.cartexam.generator.entity.Question">
+    update exam_question
+    set knowledge_id = #{knowledgeId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      optiona = #{optiona,jdbcType=VARCHAR},
+      optionb = #{optionb,jdbcType=VARCHAR},
+      optionc = #{optionc,jdbcType=VARCHAR},
+      optiond = #{optiond,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      answer = #{answer,jdbcType=VARCHAR},
+      answer_detail = #{answerDetail,jdbcType=VARCHAR},
+      user_answer = #{userAnswer,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=INTEGER}
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </update>
+</mapper>

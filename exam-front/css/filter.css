@@ -1,0 +1,41 @@
+.filter_box{
+    padding-left:5%;
+    border: #3c7527 1px dashed;
+    background-color: #fcfff2;
+}
+.flex-start-center{
+    justify-content: flex-start;align-items: center;
+}
+
+.select-conditions a{
+    margin-left: 20px;
+}
+
+.select-conditions .conditions-title{
+    width:80px;
+}
+
+.select-conditions .conditions{
+    width: 80%;
+}
+
+.select-conditions .conditions a{
+    display: inline-block;
+}
+
+.select-conditions .conditions{
+    flex-wrap: wrap;
+}
+
+#filter_conditions div{
+    margin-left: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+#filter_conditions div a{
+    margin-left: 10px;
+}

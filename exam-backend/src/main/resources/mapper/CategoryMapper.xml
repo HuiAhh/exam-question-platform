@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huiahh.cartexam.generator.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.huiahh.cartexam.generator.entity.Category">
+        <id column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="keywords" jdbcType="VARCHAR" property="keywords"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="icon_url" jdbcType="VARCHAR" property="iconUrl"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="level" jdbcType="TINYINT" property="level"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    category_id, name, keywords, pid, icon_url, pic_url, level, add_time, update_time, 
+    deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_category
+        where category_id = #{categoryId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultType="com.huiahh.cartexam.generator.entity.Category" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_category
+    </select>
+    <!--根据分类层级查询, level分类层级，默认为0。0未指定、1学科、2章节、3知识点-->
+    <select id="selectByLevel" parameterType="java.lang.Integer"
+            resultType="com.huiahh.cartexam.generator.entity.Category">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_category
+        where level=#{level}
+    </select>
+    <!--查询pid对应的所有章节, 高数->{导数, 极限}-->
+    <select id="selectSectionsByCourse" parameterType="java.lang.Integer"
+            resultType="com.huiahh.cartexam.generator.entity.Category">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_category
+        where level=2 and pid=#{subjectId}
+    </select>
+    <!--根据章节查找对应的知识点-->
+    <select id="selectKnowledgesBySectionId" parameterType="java.lang.Integer"
+            resultType="com.huiahh.cartexam.generator.entity.Category">
+        select
+        <include refid="Base_Column_List"/>
+        from exam_category
+        where level>=3 and pid=#{categoryId}
+    </select>
+    <!--查询学科id对应的章节数量-->
+    <select id="findCountChapterById" resultType="int" parameterType="java.lang.Integer">
+        select
+            count(*)
+        from exam_category
+        where pid = #{subjectId} and level = 2;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.huiahh.cartexam.generator.entity.Category">
+        insert into exam_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="iconUrl != null">
+                icon_url,
+            </if>
+            <if test="picUrl != null">
+                pic_url,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="iconUrl != null">
+                #{iconUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="picUrl != null">
+                #{picUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=TINYINT},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id实现部分更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.huiahh.cartexam.generator.entity.Category">
+        update exam_category
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="iconUrl != null">
+                icon_url = #{iconUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="picUrl != null">
+                pic_url = #{picUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=TINYINT},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where category_id = #{categoryId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.huiahh.cartexam.generator.entity.Category">
+    update exam_category
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+</mapper>

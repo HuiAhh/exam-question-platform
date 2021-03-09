@@ -1,0 +1,36 @@
+body{
+    background-color: #f8f9ff;
+    margin:0;
+}
+.lg{
+    margin: 2%;width: 100px;height: auto;
+}
+
+.flex-space-around{
+    display:flex;
+    justify-content: space-around;
+}
+
+.hd{
+    background-color: #D0E6F1 !important;
+}
+
+.hd-nav{
+    background-color: #d6d3d9;
+}
+
+#search{
+    background-color: #f8f9ff;
+}
+
+.ft{
+    background-color: #98C1C0;
+}
+
+.copyright{
+    background-color: #84a8a7;
+}
+
+.mid{
+    background-color: #f8f9ff;
+}
